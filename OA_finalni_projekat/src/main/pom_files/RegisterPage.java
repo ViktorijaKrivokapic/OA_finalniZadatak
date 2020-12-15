@@ -22,8 +22,11 @@ public class RegisterPage extends Page{
     protected By ponovljenaSifra = By.id("customer[confirm_password]");
     protected By mobilni = By.id("customer[mobile]");
     protected By datumRodjenja = By.id("datepicker");
+    protected By datePicker = By.id("ui-datepicker-div");
     protected By checkboxPrihvatiUslove = By.id("accept_terms");
     protected By dugmeRegistracija = By.name("Submit");
+    protected By poljeDanUmjesecu = By.linkText("1");
+    protected By messageRegistered = By.xpath("//div[@class='wrapped']/p[1]");
 
     // metode
 
@@ -69,17 +72,29 @@ public class RegisterPage extends Page{
     }
 
     public RegisterPage populateDateOfBirth(String text){
-        populateField(driver,datumRodjenja,text);
+        clickOnElement(datumRodjenja);
+        waitForElement(driver,datePicker,5);
+        clickOnElement(poljeDanUmjesecu);
         return this;
     }
 
-    public RegisterPage acceptTerms(WebDriver driver, By by){
+    public RegisterPage acceptTerms(){
         clickOnElement(checkboxPrihvatiUslove);
         return this;
     }
 
-    public RegisterPage clickToRegister(WebDriver driver, By by){
+    public RegisterPage waitForCaptchaToBeSolved(){
+        waitForElementToBeClickable(driver,dugmeRegistracija,120);
+        return this;
+    }
+
+    public RegisterPage clickToRegister(){
         clickOnElement(dugmeRegistracija);
         return this;
+    }
+
+    public String getTextFromSuccessfulRegisterMessage(){
+        String text = getTextFromElement(driver, messageRegistered);
+        return text;
     }
 }

@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 public class TehnomanijaTests {
 
+    int waitForCaptcha = 120;
 
    // @BeforeMethod
   /*  public void setup(){
@@ -37,10 +38,13 @@ public class TehnomanijaTests {
         DriverManager driverManager;
         String ime = "Testerica";
         String prezime = "Testerovic";
-        String email = "Viktorija.krivokapic25@gmail.com";
-        String lozinka = "test123!@#";
+        String email = "Viktorija.krivokapic25+1@gmail.com";
+        String lozinka = "Test123!@#";
         String brojTelefona = "0123456789";
         String datumRodjenja = "01.01.1970";
+        String expectedText = "Uspešno ste se registrovali.";
+        String errorMesssage = "Ocekivani i posmatrani text nisu identicni.";
+
 
 
         driverManager = DriverManagerFactory.getDriverManager("CHROME");
@@ -54,8 +58,31 @@ public class TehnomanijaTests {
                 .clickToRegister(driver);
 
         RegisterPage rp = new RegisterPage(driver);
-        rp.waitForTitle(driver);
-        rp.populateName(ime).populateSurname(prezime).populateEmail(email).confirmEmail(email).populatePassword(lozinka);
+        rp.waitForTitle(driver)
+                .acceptCookies();
+        rp.populateName(ime)
+                .populateSurname(prezime)
+                .populateEmail(email)
+                .confirmEmail(email)
+                .populatePassword(lozinka)
+                .confirmPassword(lozinka)
+                .populateNumber(brojTelefona)
+                .populateDateOfBirth(datumRodjenja)
+                .acceptTerms();
+
+
+        // cekaj 'waitForCaptcha' sekundi dok korisnik ne klikne captcha
+        System.out.println("Imate "+waitForCaptcha+" sekundi da rijesite kepcu!");
+
+        //rp.waitForCaptchaToBeSolved();
+
+        //driver.manage().timeouts().implicitlyWait(waitForCaptcha, TimeUnit.SECONDS);
+
+        rp.clickToRegister();
+
+        String actualText = rp.getTextFromSuccessfulRegisterMessage();
+
+        assert actualText==expectedText: errorMesssage;
 
     }
 }
