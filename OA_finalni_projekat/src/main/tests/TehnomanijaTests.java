@@ -11,10 +11,14 @@ import java.util.concurrent.TimeUnit;
 
 public class TehnomanijaTests {
 
+    String URL = "https://www.tehnomanija.rs/";
     int waitForCaptcha = 120;
+/*
+    @BeforeMethod
+    public void setup(){
+        DriverManager driverManager;
+        WebDriver driver = null;
 
-   // @BeforeMethod
-  /*  public void setup(){
         driverManager = DriverManagerFactory.getDriverManager("CHROME");
         driver = driverManager.getWebDriver();
         driver.get(URL);
@@ -33,9 +37,8 @@ public class TehnomanijaTests {
 
     @Test
     public void registracijaKorisnika(){
-        WebDriver driver;
-        String URL = "https://www.tehnomanija.rs/";
-        DriverManager driverManager;
+        WebDriver driver = null;
+
         String ime = "Testerica";
         String prezime = "Testerovic";
         String email = "Viktorija.krivokapic25+1@gmail.com";
@@ -45,20 +48,20 @@ public class TehnomanijaTests {
         String expectedText = "Uspešno ste se registrovali.";
         String errorMesssage = "Ocekivani i posmatrani text nisu identicni.";
 
-
+        DriverManager driverManager;
 
         driverManager = DriverManagerFactory.getDriverManager("CHROME");
         driver = driverManager.getWebDriver();
         driver.get(URL);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS) ;
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         HomePage hp = new HomePage(driver);
-        hp.hoverPrijava(driver)
-                .waitForTooltip(driver)
-                .clickToRegister(driver);
+        hp.hoverPrijava()
+                .waitForTooltip()
+                .clickToRegister();
 
         RegisterPage rp = new RegisterPage(driver);
-        rp.waitForTitle(driver)
+        rp.waitForTitle()
                 .acceptCookies();
         rp.populateName(ime)
                 .populateSurname(prezime)
@@ -84,5 +87,42 @@ public class TehnomanijaTests {
 
         assert actualText==expectedText: errorMesssage;
 
+    }
+
+
+    /**
+     * II
+     * 1. Navigate to https://www.tehnomanija.rs/
+     * 2. Hover over "Kategorije proizvoda"
+     * 3. Verify that all the menu items are displayed (text and icons)
+     * 4. Hover over "IT SHOP"
+     * 5. Verify that the color of the text is yellow.
+     * 6. Click "IT SHOP"
+     * 7. Verify that you are on the correct page by checking the URL
+     * 8. Click on "Laptopovi" image
+     * 9. Verify that you are on the correct page by checking the URL
+     * 10. Click on "Laptop racunari" image
+     * 11. Verify that you are on the correct page by checking the URL
+     * 12. In the filter on the left side of the screen, check the "Honor" in "Robna marka"
+     * 13. Verify that only "Honor" products are shown.
+     * 14. Sort products by price decending.
+     * 15 Verify that the products are sorted by price descending.**/
+
+    @Test
+    public void filterAndSortCheck(){
+
+        String[] dropdownMeniStavke = new String[]{"CELEBRITY STORE -", "BELA TEHNIKA"};
+
+
+        WebDriver driver = null;
+        DriverManager driverManager;
+
+        driverManager = DriverManagerFactory.getDriverManager("CHROME");
+        driver = driverManager.getWebDriver();
+        driver.get(URL);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        HomePage hp = new HomePage(driver);
+        hp.hoverKategorijeProizvoda();
     }
 }
