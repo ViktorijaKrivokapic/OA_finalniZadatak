@@ -50,7 +50,7 @@ public class Page {
 
     public String getTextFromElement(WebDriver driver, By by){
         WebElement element = driver.findElement(by);
-        String text = element.getText();
+        String text = element.getText().trim();
         return text;
     }
     public Page hoverElement(WebDriver driver, By by){
@@ -60,7 +60,7 @@ public class Page {
         return this;
     }
 
-    public Page implicitWaitInSeconds (int timeout){
+    public Page implicitWaitInSeconds (WebDriver driver, int timeout){
         driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
         return this;
     }

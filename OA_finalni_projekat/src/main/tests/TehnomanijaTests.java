@@ -5,6 +5,7 @@ import main.pom_files.RegisterPage;
 import main.selenium_core.DriverManager;
 import main.selenium_core.DriverManagerFactory;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -56,12 +57,12 @@ public class TehnomanijaTests {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         HomePage hp = new HomePage(driver);
-        hp.hoverPrijava()
+        hp.hoverPrijava(driver)
                 .waitForTooltip()
                 .clickToRegister();
 
         RegisterPage rp = new RegisterPage(driver);
-        rp.waitForTitle()
+        rp.waitForTitle(driver)
                 .acceptCookies();
         rp.populateName(ime)
                 .populateSurname(prezime)
@@ -127,7 +128,7 @@ public class TehnomanijaTests {
         driver.get(URL);
 
         HomePage hp = new HomePage(driver);
-        hp.implicitWaitInSeconds(5);
+        hp.implicitWaitInSeconds(driver,5);
         hp.hoverKategorijeProizvoda();
         int brojStavki = hp.getNumberOfElementsInDropdownKategorijeProizvoda();
 
@@ -136,11 +137,7 @@ public class TehnomanijaTests {
             dobijeniTekstStavke = hp.getItemTextFromDropdown(i);
             ocekivaniTekstStavke = dropdownMeniStavke[i-1];
             String errorText = "stavka sa dropdown menija ne odgovara ocekivanom rezultatu. Ocekivano: >>>"+ocekivaniTekstStavke+"<<<. Dobijeno: >>>"+dobijeniTekstStavke+"<<<";
-            if (dobijeniTekstStavke==ocekivaniTekstStavke){
-                System.out.println("dobro za "+i);
-            }else {
-                System.out.println("nije dobro za "+i);
-            }
+            Assert.assertTrue(dobijeniTekstStavke.contentEquals(ocekivaniTekstStavke));
             //assert dobijeniTekstStavke == ocekivaniTekstStavke:errorText;
         }
     }

@@ -30,7 +30,7 @@ public class RegisterPage extends Page{
 
     // metode
 
-    public RegisterPage waitForTitle(){
+    public RegisterPage waitForTitle(WebDriver driver){
         int timeout = 10;
         waitForElement(driver, naslovStrane, timeout);
         return this;

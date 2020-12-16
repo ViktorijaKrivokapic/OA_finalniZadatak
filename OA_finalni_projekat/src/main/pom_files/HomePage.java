@@ -28,7 +28,7 @@ public class HomePage extends Page{
 
     //metode
 
-    public HomePage hoverPrijava (){
+    public HomePage hoverPrijava (WebDriver driver){
         Actions hover = new Actions(driver);
         WebElement we = driver.findElement(linkPrijava);
         hover.moveToElement(we).perform();
@@ -36,7 +36,7 @@ public class HomePage extends Page{
     }
     public HomePage hoverKategorijeProizvoda (){
         hoverElement(driver, linkKategorijeProizvoda);
-        implicitWaitInSeconds(3);
+        implicitWaitInSeconds(driver,3);
         return this;
     }
 
