@@ -17,7 +17,12 @@ public class HomePage extends Page{
     protected By linkPrijava = By.xpath("//*[@class='user-wraper']");
     protected By tooltipLogin = By.id("login_dropdown");
     protected By linkRegistracija = By.xpath("//div[@class='register-links-wrap']/a");
-    protected By linkKategorijeProizvoda = By.className("scroll-category");
+    protected By linkKategorijeProizvoda = By.xpath("//div[@class='category-menu js-category-menu']");
+    protected By linkPadajuciMeniProizvod(int index) {
+        String locatorText = "(//a[@class='first-level-link'])["+index+"]";
+    return By.xpath(locatorText);
+    }
+    protected By linkPadajuciMeniSviProizvodi = By.xpath("//a[@class='first-level-link']");
 
 
 
@@ -30,9 +35,8 @@ public class HomePage extends Page{
         return this;
     }
     public HomePage hoverKategorijeProizvoda (){
-        Actions hover = new Actions(driver);
-        WebElement we = driver.findElement(linkKategorijeProizvoda);
-        hover.moveToElement(we).perform();
+        hoverElement(driver, linkKategorijeProizvoda);
+        implicitWaitInSeconds(3);
         return this;
     }
 
@@ -42,8 +46,18 @@ public class HomePage extends Page{
         return this;
     }
 
-    public HomePage clickToRegister () {
+    public HomePage clickToRegister() {
         driver.findElement(linkRegistracija).click();
         return this;
+    }
+
+    public String getItemTextFromDropdown(int index) {
+        String text = getTextFromElement(driver,linkPadajuciMeniProizvod(index));
+        return text;
+    }
+
+    public int getNumberOfElementsInDropdownKategorijeProizvoda(){
+        int count = getNumberOfElementsUsingXpath(linkPadajuciMeniSviProizvodi);
+        return count;
     }
 }

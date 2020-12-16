@@ -3,8 +3,11 @@ package main.pom_files;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.concurrent.TimeUnit;
 
 public class Page {
     //konstruktor
@@ -49,6 +52,22 @@ public class Page {
         WebElement element = driver.findElement(by);
         String text = element.getText();
         return text;
+    }
+    public Page hoverElement(WebDriver driver, By by){
+        Actions hover = new Actions(driver);
+        WebElement we = driver.findElement(by);
+        hover.moveToElement(we).perform();
+        return this;
+    }
+
+    public Page implicitWaitInSeconds (int timeout){
+        driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
+        return this;
+    }
+
+    public int getNumberOfElementsUsingXpath(By by){
+        int count = driver.findElements(by).size();
+        return count;
     }
 
     public Page acceptCookies(){

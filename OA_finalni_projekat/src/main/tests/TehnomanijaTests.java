@@ -111,8 +111,13 @@ public class TehnomanijaTests {
     @Test
     public void filterAndSortCheck(){
 
-        String[] dropdownMeniStavke = new String[]{"CELEBRITY STORE -", "BELA TEHNIKA"};
+        String[] dropdownMeniStavke = new String[]{"CELEBRITY STORE - NOVO",
+                "IGRAČKE" ,"BELA TEHNIKA","MALI KUĆNI APARATI","KLIMA UREĐAJI I GREJANJE",
+                "TV I VIDEO","IT SHOP", "TELEFONIJA", "LEPOTA I ZDRAVLJE", "FOTO-APARATI I KAMERE",
+                "AUDIO", "AUTO TEHNIKA", "SVE ZA KUĆU", "LIFESTYLE"};
 
+        String dobijeniTekstStavke = null;
+        String ocekivaniTekstStavke = null;
 
         WebDriver driver = null;
         DriverManager driverManager;
@@ -120,9 +125,23 @@ public class TehnomanijaTests {
         driverManager = DriverManagerFactory.getDriverManager("CHROME");
         driver = driverManager.getWebDriver();
         driver.get(URL);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         HomePage hp = new HomePage(driver);
+        hp.implicitWaitInSeconds(5);
         hp.hoverKategorijeProizvoda();
+        int brojStavki = hp.getNumberOfElementsInDropdownKategorijeProizvoda();
+
+
+        for (int i = 1; i<=brojStavki;i++){
+            dobijeniTekstStavke = hp.getItemTextFromDropdown(i);
+            ocekivaniTekstStavke = dropdownMeniStavke[i-1];
+            String errorText = "stavka sa dropdown menija ne odgovara ocekivanom rezultatu. Ocekivano: >>>"+ocekivaniTekstStavke+"<<<. Dobijeno: >>>"+dobijeniTekstStavke+"<<<";
+            if (dobijeniTekstStavke==ocekivaniTekstStavke){
+                System.out.println("dobro za "+i);
+            }else {
+                System.out.println("nije dobro za "+i);
+            }
+            //assert dobijeniTekstStavke == ocekivaniTekstStavke:errorText;
+        }
     }
 }
