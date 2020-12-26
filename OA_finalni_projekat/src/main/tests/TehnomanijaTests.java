@@ -1,6 +1,8 @@
 package main.tests;
 
 import main.pom_files.HomePage;
+import main.pom_files.ItShopPage;
+import main.pom_files.LaptopsPage;
 import main.pom_files.RegisterPage;
 import main.selenium_core.DriverManager;
 import main.selenium_core.DriverManagerFactory;
@@ -48,6 +50,7 @@ public class TehnomanijaTests {
         String datumRodjenja = "01.01.1970";
         String expectedText = "Uspešno ste se registrovali.";
         String errorMesssage = "Ocekivani i posmatrani text nisu identicni.";
+
 
         DriverManager driverManager;
 
@@ -106,7 +109,7 @@ public class TehnomanijaTests {
      * 11. Verify that you are on the correct page by checking the URL
      * 12. In the filter on the left side of the screen, check the "Honor" in "Robna marka"
      * 13. Verify that only "Honor" products are shown.
-     * 14. Sort products by price decending.
+     * 14. Sort products by price descending.
      * 15 Verify that the products are sorted by price descending.**/
 
     @Test
@@ -119,19 +122,35 @@ public class TehnomanijaTests {
 
         String dobijeniTekstStavke = null;
         String ocekivaniTekstStavke = null;
+        String expectedTekstColor = "rgba(255, 203, 5, 1)";
+        String stavka1 = "it-shop";
+        String actualUrl = null;
+        String expectedUrl = URL+stavka1;
+        String linkTekst = "Laptopovi";
+        String expectedUrl2 = URL+stavka1+linkTekst.toLowerCase();
+        String linkTekst2 = "Laptop računari";
+        String expectedUrl3 = URL+stavka1+linkTekst2.toLowerCase();
+        String producer = "Honor";
 
         WebDriver driver = null;
         DriverManager driverManager;
 
         driverManager = DriverManagerFactory.getDriverManager("CHROME");
         driver = driverManager.getWebDriver();
+
+        /** 1. Navigate to https://www.tehnomanija.rs/ */
         driver.get(URL);
+        /***********************************************/
 
         HomePage hp = new HomePage(driver);
         hp.implicitWaitInSeconds(driver,5);
-        hp.hoverKategorijeProizvoda();
-        int brojStavki = hp.getNumberOfElementsInDropdownKategorijeProizvoda();
 
+        /** 2. Hover over "Kategorije proizvoda" */
+        hp.hoverKategorijeProizvoda();
+        /***********************************************/
+
+        /** 3. Verify that all the menu items are displayed (text and icons) */
+        int brojStavki = hp.getNumberOfElementsInDropdownKategorijeProizvoda();
 
         for (int i = 1; i<=brojStavki;i++){
             dobijeniTekstStavke = hp.getItemTextFromDropdown(i);
@@ -140,5 +159,66 @@ public class TehnomanijaTests {
             Assert.assertTrue(dobijeniTekstStavke.contentEquals(ocekivaniTekstStavke));
             //assert dobijeniTekstStavke == ocekivaniTekstStavke:errorText;
         }
+        /***********************************************/
+
+        /** 4. Hover over "IT SHOP" */
+        hp.hoverStavkaFromDropdown(stavka1);
+        /***********************************************/
+
+        /** 5. Verify that the color of the text is yellow. */
+        String actualTextColor = hp.getTextColorForStavka(stavka1);
+        hp.implicitWaitInSeconds(driver,5);
+        //assert expectedTekstColor == actualTextColor:"boje se nisu slozile!";
+
+        Assert.assertTrue(actualTextColor.contentEquals(expectedTekstColor));
+        /***********************************************/
+
+
+        /** 6. Click "IT SHOP" */
+        hp.clickStavkaFromDropdown(stavka1);
+        /***********************************************/
+        hp.implicitWaitInSeconds(driver,5);
+
+        /** 7. Verify that you are on the correct page by checking the URL */
+        actualUrl = driver.getCurrentUrl();
+
+        Assert.assertEquals(expectedUrl,actualUrl);
+        //assert actualUrl==expectedUrl:"Dobijeni i ocekivani url se razlikuju. Dobijeni: "+actualUrl+", ocekivani: "+expectedUrl;
+        /***********************************************/
+
+
+        /** 8. Click on "Laptopovi" image */
+        ItShopPage itShopPage = new ItShopPage(driver);
+        itShopPage.clickOnImageLink(linkTekst);
+
+        /***********************************************/
+        hp.implicitWaitInSeconds(driver,5);
+        /** 9. Verify that you are on the correct page by checking the URL */
+        actualUrl = driver.getCurrentUrl();
+        Assert.assertEquals(expectedUrl2,actualUrl);
+        /***********************************************/
+
+        /** 10. Click on "Laptop racunari" image */
+        itShopPage.clickOnImageLink(linkTekst2);
+        /***********************************************/
+
+        hp.implicitWaitInSeconds(driver,5);
+
+        /** 11. Verify that you are on the correct page by checking the URL */
+        actualUrl = driver.getCurrentUrl();
+        Assert.assertEquals(expectedUrl3,actualUrl);
+        /***********************************************/
+
+        hp.implicitWaitInSeconds(driver,5);
+        LaptopsPage laptopsPage = new LaptopsPage(driver);
+
+        /** 12. In the filter on the left side of the screen, check the "Honor" in "Robna marka" */
+        laptopsPage.filterByProducer(producer);
+        /***********************************************/
+
+        /** 13. Verify that only "Honor" products are shown. */
+
+        /***********************************************/
+
     }
 }

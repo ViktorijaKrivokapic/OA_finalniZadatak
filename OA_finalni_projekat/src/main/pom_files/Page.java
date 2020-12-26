@@ -74,4 +74,10 @@ public class Page {
         clickOnElement(dugmeSlazemSe);
         return this;
     }
+
+    public String getTextColor(WebDriver driver, By by){
+        WebElement webElement = driver.findElement(by);
+        String boja = webElement.getCssValue("color");
+        return boja;
+    }
 }

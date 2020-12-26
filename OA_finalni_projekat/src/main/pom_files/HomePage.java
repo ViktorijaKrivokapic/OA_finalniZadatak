@@ -23,6 +23,10 @@ public class HomePage extends Page{
     return By.xpath(locatorText);
     }
     protected By linkPadajuciMeniSviProizvodi = By.xpath("//a[@class='first-level-link']");
+    protected By linkPadajuciMeniProizvodPremuTekstuLinka(String textLinka) {
+        String locatorText = "//a[@class='first-level-link'][@href='https://www.tehnomanija.rs/"+textLinka+"']";
+        return By.xpath(locatorText);
+    }
 
 
 
@@ -59,5 +63,20 @@ public class HomePage extends Page{
     public int getNumberOfElementsInDropdownKategorijeProizvoda(){
         int count = getNumberOfElementsUsingXpath(linkPadajuciMeniSviProizvodi);
         return count;
+    }
+
+    public HomePage hoverStavkaFromDropdown(String stavka){
+        hoverElement(driver, linkPadajuciMeniProizvodPremuTekstuLinka(stavka));
+        return this;
+    }
+
+    public String getTextColorForStavka(String stavka){
+       String boja = getTextColor(driver, linkPadajuciMeniProizvodPremuTekstuLinka(stavka));
+    return boja;
+    }
+
+    public HomePage clickStavkaFromDropdown(String stavka){
+        clickOnElement(driver, linkPadajuciMeniProizvodPremuTekstuLinka(stavka));
+        return this;
     }
 }
