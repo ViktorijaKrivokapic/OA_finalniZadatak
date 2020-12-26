@@ -80,4 +80,12 @@ public class Page {
         String boja = webElement.getCssValue("color");
         return boja;
     }
+
+    public Page scrollToElement(By by){
+        WebElement element = driver.findElement(by);
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element);
+        actions.perform();
+        return this;
+    }
 }

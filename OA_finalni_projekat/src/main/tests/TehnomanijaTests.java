@@ -110,7 +110,7 @@ public class TehnomanijaTests {
      * 12. In the filter on the left side of the screen, check the "Honor" in "Robna marka"
      * 13. Verify that only "Honor" products are shown.
      * 14. Sort products by price descending.
-     * 15 Verify that the products are sorted by price descending.**/
+     * 15. Verify that the products are sorted by price descending.**/
 
     @Test
     public void filterAndSortCheck(){
@@ -127,10 +127,12 @@ public class TehnomanijaTests {
         String actualUrl = null;
         String expectedUrl = URL+stavka1;
         String linkTekst = "Laptopovi";
-        String expectedUrl2 = URL+stavka1+linkTekst.toLowerCase();
+        String expectedUrl2 = URL+stavka1+"/"+linkTekst.toLowerCase();
         String linkTekst2 = "Laptop računari";
-        String expectedUrl3 = URL+stavka1+linkTekst2.toLowerCase();
+        String linkTekst2Formatted = linkTekst2.replace(" ","-").replace("č","c").toLowerCase();
+        String expectedUrl3 = URL+stavka1+"/"+linkTekst2Formatted;
         String producer = "Honor";
+        String sortItem = "Ceni opadajuće";
 
         WebDriver driver = null;
         DriverManager driverManager;
@@ -213,12 +215,29 @@ public class TehnomanijaTests {
         LaptopsPage laptopsPage = new LaptopsPage(driver);
 
         /** 12. In the filter on the left side of the screen, check the "Honor" in "Robna marka" */
+        laptopsPage.acceptCookies();
         laptopsPage.filterByProducer(producer);
         /***********************************************/
-
+        hp.implicitWaitInSeconds(driver,5);
         /** 13. Verify that only "Honor" products are shown. */
+        int numberOfProducts = laptopsPage.getNumberOfProducts();
+        String currentDescriptionText = null;
+        for (int i = 1; i<= numberOfProducts; i++){
+        currentDescriptionText = laptopsPage.getProductDescriptionTextByIndex(i);
+            System.out.println(currentDescriptionText);
+            Assert.assertTrue(currentDescriptionText.contains(producer));
+        }
+        /***********************************************/
+        hp.implicitWaitInSeconds(driver,5);
+        /** 14. Sort products by price descending. */
+        laptopsPage.sortByText(sortItem);
+        /***********************************************/
+
+
+        /** 15. Verify that the products are sorted by price descending. */
 
         /***********************************************/
+
 
     }
 }
