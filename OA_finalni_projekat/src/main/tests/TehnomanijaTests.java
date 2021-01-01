@@ -133,6 +133,7 @@ public class TehnomanijaTests {
         String expectedUrl3 = URL+stavka1+"/"+linkTekst2Formatted;
         String producer = "Honor";
         String sortItem = "Ceni opadajuće";
+        String errorForDescendingPriceFailure = "Cijene nisu sortirane po opadajucem redosledu! Ocekivano je da je %s1 vece ili jednako od %s2";
 
         WebDriver driver = null;
         DriverManager driverManager;
@@ -235,7 +236,25 @@ public class TehnomanijaTests {
 
 
         /** 15. Verify that the products are sorted by price descending. */
+        String currentPricePrecendent = null;
+        String currentPriceSucceder = null;
+        for (int i = 1; i < numberOfProducts; i++){
+            currentPricePrecendent = laptopsPage.getProductPrice(i);
+            currentPriceSucceder = laptopsPage.getProductPrice(i+1);
 
+            currentPricePrecendent = currentPricePrecendent.split(" ")[0];
+            currentPriceSucceder = currentPriceSucceder.split(" ")[0];
+;
+            currentPricePrecendent = currentPricePrecendent.replaceAll("\\.","");
+            currentPriceSucceder = currentPriceSucceder.replaceAll("\\.","");
+
+            int iCurrentPricePrecendent = Integer.parseInt(currentPricePrecendent);
+            int iCurrentPriceSucceder = Integer.parseInt(currentPriceSucceder);
+
+            assert iCurrentPricePrecendent>=iCurrentPriceSucceder:String.format(errorForDescendingPriceFailure, currentPricePrecendent,currentPriceSucceder);
+            System.out.println(currentDescriptionText);
+            Assert.assertTrue(currentDescriptionText.contains(producer));
+        }
         /***********************************************/
 
 

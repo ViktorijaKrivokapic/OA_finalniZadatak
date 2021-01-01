@@ -25,6 +25,10 @@ public class LaptopsPage extends Page{
             String locatorText = "//*[@name='sort'][text()='"+tekst+"']";
         return By.xpath(locatorText);
     }
+    protected By priceByIndex(int index) {
+        String locatorText = "(//*[@class='price'])["+index+"]";
+        return By.xpath(locatorText);
+    }
 
     // methods
 
@@ -47,6 +51,10 @@ public class LaptopsPage extends Page{
 
     public String getProductDescriptionTextByIndex(int index){
         String text = driver.findElement(productTextByIndex(index)).getText();
+        return text;
+    }
+    public String getProductPrice(int index){
+        String text = driver.findElement(priceByIndex(index)).getText();
         return text;
     }
 
