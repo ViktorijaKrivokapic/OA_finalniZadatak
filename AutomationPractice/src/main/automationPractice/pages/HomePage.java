@@ -82,7 +82,7 @@ public class HomePage extends Page{
         }
 
     public HomePage clickHomeButton() {
-        driver.findElement(homeButton.click());
+        driver.findElement(homeButton).click();
         return this;
     }
     public HomePage clickTestCasesButton(){
