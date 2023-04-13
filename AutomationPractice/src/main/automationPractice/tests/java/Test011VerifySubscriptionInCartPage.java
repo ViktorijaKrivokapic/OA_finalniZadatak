@@ -18,6 +18,8 @@ public class Test011VerifySubscriptionInCartPage {
     DriverManager driverManager;
     WebDriver driver = null;
 
+    String emailAddress = "vikitesting@gmail.com";
+
 
     @BeforeMethod
     public void setup() {
@@ -33,7 +35,7 @@ public class Test011VerifySubscriptionInCartPage {
     }
 
     @Test
-    public void test002() {
+    public void test011() {
         HomePage homePage = new HomePage(driver);
 
        // 3. Verify that home page is visible successfully
@@ -41,11 +43,12 @@ public class Test011VerifySubscriptionInCartPage {
       //  4. Click 'Cart' button
         homePage.clickCartButtonOnHomepage();
      //   5. Scroll down to footer
+        homePage.scrollToFooter();
 
       //  6. Verify text 'SUBSCRIPTION'
         homePage.waitForSubsripctionText();
       //  7. Enter email address in input and click arrow button
-        homePage.populateEmailAddressOnSubscription();
+        homePage.populateEmailAddressOnSubscription(emailAddress);
         homePage.clickSubscribeButton();
        // 8. Verify success message 'You have been successfully subscribed!' is visible
         homePage.waitForSuccessfullySubscribedMessage();

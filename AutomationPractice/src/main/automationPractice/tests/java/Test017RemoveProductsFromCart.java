@@ -29,25 +29,25 @@ public class Test017RemoveProductsFromCart {
     }
 
     @Test
-    public void test002() {
+    public void test017() {
         HomePage homePage = new HomePage(driver);
 
 
-      //  3. Verify that home page is visible successfully
+        //  3. Verify that home page is visible successfully
         homePage.waitForGirlImage();
-      //  4. Add products to cart
+        //  4. Add products to cart
         homePage.clickProductButton();
         ProductsPage productsPage = new ProductsPage(driver);
         productsPage.addProductToCart();
-      //  5. Click 'Cart' button
+        //  5. Click 'Cart' button
         CartPage cartPage = new CartPage(driver);
         cartPage.clickViewCartButton();
-      //  6. Verify that cart page is displayed
+        //  6. Verify that cart page is displayed
         cartPage.waitForShoppingCart();
-      //  7. Click 'X' button corresponding to particular product
-
-      //  8. Verify that product is removed from the cart
-
+        //  7. Click 'X' button corresponding to particular product
+        cartPage.clickDeleteProductFromCart(1);
+        //  8. Verify that product is removed from the cart
+    }
     @AfterClass
     public void tearDown() {
         driver.quit();

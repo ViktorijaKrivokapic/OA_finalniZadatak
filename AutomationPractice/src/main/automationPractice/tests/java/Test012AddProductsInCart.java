@@ -33,7 +33,7 @@ public class Test012AddProductsInCart {
     }
 
     @Test
-    public void test002() {
+    public void test012() {
         HomePage homePage = new HomePage(driver);
 
         // 3. Verify that home page is visible successfully

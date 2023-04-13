@@ -26,8 +26,8 @@ public class HomePage extends Page{
     protected By productsButton = By.xpath ("//a[text()=' Products']");
     protected By allProductsPage = By.xpath("//h2[text()='All Products']");
     protected By subscriptionText = By.xpath("//h2[text()='Subscription']");
-    protected By subscribeButton = By.id('subscribe');
-    protected By subscribeEmailField = By.id('susbscribe_email');
+    protected By subscribeButton = By.id("subscribe");
+    protected By subscribeEmailField = By.id("susbscribe_email");
     protected By successfullySubscribedMessage = By.xpath("//*[text()='You have been successfully subscribed!']");
     protected By cartButtonOnHomepage = By.xpath("//*[text()=' Cart']");
     protected By categoryHeadline = By.xpath("//*[text()='Category']");
@@ -133,7 +133,7 @@ public class HomePage extends Page{
         return this;
     }
 
-    public LoginPage populateEmailAddressOnSubscription(String text) {
+    public HomePage populateEmailAddressOnSubscription(String text) {
         populateField(driver, subscribeEmailField, text);
         return this;
     }

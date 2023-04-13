@@ -27,7 +27,7 @@ public class Test019ViewAndCartBrandProducts {
     }
 
     @Test
-    public void test002() {
+    public void test019() {
         HomePage homePage = new HomePage(driver);
 
 

@@ -30,7 +30,9 @@ public class CartPage extends Page {
     protected By payAndConfirmOrderButton = By.xpath("//*[@data-qa='pay-button']");
     protected By orderSuccessfullyPlaced = By.xpath("//*[@id='success_message']/*[contains(text(),'Your order has been placed successfully!')]");
 
-protected By deleteMaleShirtFromCart = By.xpath(""//*[text()='']")
+    protected By deleteProductById(int productId) {
+        return By.id("product-"+productId);
+    }
 
 
 
@@ -72,7 +74,7 @@ protected By deleteMaleShirtFromCart = By.xpath(""//*[text()='']")
     public CartPage verifyAddressOnAddressDetails(String address) {
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(addressOnAddressDetailPage(address)));
-\        return this;
+       return this;
     }
 
     public CartPage waitForFirstProductOnConfirmOrderPage() {
@@ -131,8 +133,8 @@ protected By deleteMaleShirtFromCart = By.xpath(""//*[text()='']")
         return this;
     }
 
-    public CartPage clickDeleteProductFromCart() {
-        clickOnElement();
+    public CartPage clickDeleteProductFromCart(int productId) {
+        clickOnElement(deleteProductById(productId));
         return this;
     }
 

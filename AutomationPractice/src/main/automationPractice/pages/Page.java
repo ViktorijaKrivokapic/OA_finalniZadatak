@@ -1,6 +1,7 @@
 package AutomationPractice.src.main.automationPractice.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -10,6 +11,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Page {
 
+    protected By footer = By.id("footer");
+
     //konstruktor
     WebDriver driver;
 
@@ -18,13 +21,13 @@ public class Page {
     }
 
     public Page populateField(WebDriver driver, By by, String text){
-        WebElement element = driver.findElement(by);
+         WebElement element = driver.findElement(by);
         element.sendKeys(text);
         return this;
     }
 
     public void clickOnElement(By by){
-        WebElement element = driver.findElement(by);
+       WebElement element = driver.findElement(by);
         element.click();
     }
 
@@ -38,10 +41,21 @@ public class Page {
         return dropdown;
     }
 
-    public void scrollToElement(By identifier){
-        WebElement scrollElement = driver.findElement(identifier);
+    /*public void scrollToElement(By identifier){
+         scrollElement = driver.findElement(identifier);
         Actions actions = new Actions(driver);
         actions.moveToElement(scrollElement);
         actions.perform();
     }
+    */
+    public Page scrollToElement (By by){
+        WebElement element = driver.findElement(by);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        return this;
+    }
+    public Page scrollToFooter(){
+        scrollToElement(footer);
+        return this;
+    }
+
 }

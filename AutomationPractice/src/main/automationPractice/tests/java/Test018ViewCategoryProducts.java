@@ -29,7 +29,7 @@ public class Test018ViewCategoryProducts {
     }
 
     @Test
-    public void test002() {
+    public void test018() {
         HomePage homePage = new HomePage(driver);
 
       //  3. Verify that categories are visible on left side bar

@@ -27,7 +27,7 @@ public class Test016PlaceOrderLoginBeforeCheckout {
     String expirationDateYear = "20";
     String cardNumber = "28374938";
     String loginEmail = "marko24@gmail.com";
-    String loginPassword = "12345"
+    String loginPassword = "12345";
 
 
 
@@ -45,7 +45,7 @@ public class Test016PlaceOrderLoginBeforeCheckout {
     }
 
     @Test
-    public void test002() {
+    public void test016() {
         HomePage homePage = new HomePage(driver);
 
 

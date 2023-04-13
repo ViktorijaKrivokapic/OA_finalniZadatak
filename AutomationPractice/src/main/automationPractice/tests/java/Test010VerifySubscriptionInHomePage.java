@@ -33,12 +33,14 @@ public class Test010VerifySubscriptionInHomePage {
     }
 
     @Test
-    public void test002() {
+    public void test010() {
         HomePage homePage = new HomePage(driver);
 
         //3. Verify that home page is visible successfully
         homePage.waitForGirlImage();
         //4. Scroll down to footer
+        homePage.scrollToFooter();
+
 
         //5. Verify text 'SUBSCRIPTION'
         homePage.waitForSubsripctionText();

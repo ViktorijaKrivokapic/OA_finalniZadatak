@@ -24,6 +24,21 @@ public class Test015PlaceOrderRegisterBeforeCheckout {
     String expirationDateMonth = "03";
     String expirationDateYear = "20";
     String cardNumber = "28374938";
+    String genderType = "male";
+    String password = "12345";
+    String mobileNumber = "46757588";
+    String zipcode = "46783";
+    String cityName = "London";
+    String stateName = "djhgj";
+    String countryName = "England";
+    String address = "Kensington16";
+    String companyName = "Volvo";
+    String dayOfBirth = "27";
+    String monthOfBirth = "04";
+    String yearOfBirth = "1985";
+    String firstName = "John";
+    String lastName = "Lebovwski";
+    String address2 = "Kensingtonstr17";
 
     @BeforeMethod
     public void setup() {
@@ -39,7 +54,7 @@ public class Test015PlaceOrderRegisterBeforeCheckout {
     }
 
     @Test
-    public void test002() {
+    public void test015() {
         HomePage homePage = new HomePage(driver);
 
       //  3. Verify that home page is visible successfully
