@@ -25,6 +25,15 @@ public class HomePage extends Page{
     protected By testCasesPageText = By.xpath("//h2[text()='Test Cases']");
     protected By productsButton = By.xpath ("//a[text()=' Products']");
     protected By allProductsPage = By.xpath("//h2[text()='All Products']");
+    protected By subscriptionText = By.xpath("//h2[text()='Subscription']");
+    protected By subscribeButton = By.id('subscribe');
+    protected By subscribeEmailField = By.id('susbscribe_email');
+    protected By successfullySubscribedMessage = By.xpath("//*[text()='You have been successfully subscribed!']");
+    protected By cartButtonOnHomepage = By.xpath("//*[text()=' Cart']");
+    protected By categoryHeadline = By.xpath("//*[text()='Category']");
+    protected By womenSectionInCategory = By.xpath("//*[text()='Women']");
+
+
 
 
     public HomePage(WebDriver driver) {
@@ -106,4 +115,44 @@ public class HomePage extends Page{
         wait.until(ExpectedConditions.visibilityOfElementLocated(allProductsPage));
         return this;
     }
+
+    public HomePage waitForSubsripctionText() {
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(subscriptionText));
+        return this;
+    }
+
+    public HomePage clickSubscribeButton() {
+        clickOnElement(subscribeButton);
+        return this;
+    }
+
+    public HomePage waitForSuccessfullySubscribedMessage() {
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(successfullySubscribedMessage));
+        return this;
+    }
+
+    public LoginPage populateEmailAddressOnSubscription(String text) {
+        populateField(driver, subscribeEmailField, text);
+        return this;
+    }
+
+    public HomePage clickCartButtonOnHomepage() {
+        clickOnElement(cartButtonOnHomepage);
+        return this;
+    }
+
+    public HomePage waitForCategoryHeadline() {
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(categoryHeadline));
+        return this;
+    }
+
+    public HomePage clickWomenSectionInCategory() {
+        clickOnElement(womenSectionInCategory);
+        return this;
+    }
+
+
 }

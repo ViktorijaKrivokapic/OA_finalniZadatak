@@ -1,6 +1,7 @@
 package AutomationPractice.src.main.automationPractice.tests.java;
 
 import AutomationPractice.src.main.automationPractice.pages.HomePage;
+import AutomationPractice.src.main.automationPractice.pages.ProductsPage;
 import AutomationPractice.src.main.selenium_core.DriverManager;
 import AutomationPractice.src.main.selenium_core.DriverManagerFactory;
 import org.openqa.selenium.WebDriver;
@@ -43,10 +44,20 @@ public class Test008VerifyAllProductsAndProductDetailPage {
         homePage.waitForAllProductsPageText();
 
         //6. The products list is visible
-      /*  7. Click on 'View Product' of first product
-        8. User is landed to product detail page
-        9. Verify that detail detail is visible: product name, category, price, availability, condition, brand
-*/
+        homePage.waitForAllProductsPageText();
+      //  7. Click on 'View Product' of first product
+        ProductsPage productsPage = new ProductsPage(driver);
+        productsPage.clickFirstProductViewButton();
+        //8. User is landed to product detail page
+
+       // 9. Verify that detail is visible: product name, category, price, availability, condition, brand
+        productsPage.waitForProductNameInfo();
+        productsPage.waitForProductAvailabilityInfo();
+        productsPage.waitForProductCategoryInfo();
+        productsPage.waitForProductPriceInfo();
+        productsPage.waitForProductBrandInfo();
+
+
     }
 
     @AfterClass
